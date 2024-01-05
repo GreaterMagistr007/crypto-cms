@@ -10,4 +10,9 @@ class AdminController extends Controller
     {
         dd('admin index');
     }
+
+    public function send_telegram_code_for_auth()
+    {
+        dd('admin send_telegram_code_for_auth');
+    }
 }

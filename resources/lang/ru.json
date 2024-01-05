@@ -837,5 +837,7 @@
     "Zip / Postal Code": "Почтовый индекс",
     "Åland Islands": "Аландские острова",
     "These credentials do not match our records.": "Эти учетные данные не соответствуют нашим записям.",
-    "The password field must be at least 8 characters.": "Поле пароля должно быть не менее 8 символов."
+    "The password field must be at least 8 characters.": "Поле пароля должно быть не менее 8 символов.",
+    "The code will be sent to the chat": "Код будет отправлен в чат",
+    "Send code": "Отправить код"
 }

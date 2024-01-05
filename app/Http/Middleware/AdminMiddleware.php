@@ -33,9 +33,27 @@ class AdminMiddleware
             return response(view('errors.404'));
         }
 
+        $timeNow = Carbon::now()->format('Y-m-d H:i:s');
+
         // Админка пользователю недоступна, нужно подтверждение кодом
-        if (!$adminData->date_until_access_to_admin_panel || Carbon::now() > $adminData->date_until_access_to_admin_panel) {
+        if (!$adminData->date_until_access_to_admin_panel || $timeNow > $adminData->date_until_access_to_admin_panel) {
             dump('Время пребывания в админке вышло');
+
+            // Дата отправки кода
+            $dateCodeSend = Carbon::parse($adminData->code_date);
+            // Количество минут после последней отправки кода
+            $minutesAfterLastSendCode = Carbon::now()->diffInMinutes($dateCodeSend);
+            // Факт отправки кода
+            $isCodeSended = $adminData->code && $minutesAfterLastSendCode > env('ADMIN_TIME_TO_ENTER_CODE_MINUTES');
+
+            if (!$isCodeSended && $request->method() === 'PATCH') {
+                dd(route('patch__admin_send-auth-code'), $request);
+                if ($request->method() === 'PATCH') {
+                    dd($request->action);
+                }
+            }
+
+            return response(view('admin.pages.code', ['isCodeSended' => $isCodeSended, 'minutesAfterLastSendCode' => $minutesAfterLastSendCode]));
         }
 
         //
