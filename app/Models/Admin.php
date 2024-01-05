@@ -57,6 +57,15 @@ class Admin extends Model
         $this->save();
     }
 
+    public function resetAdminAuthData()
+    {
+        $this->code = null;
+        $this->code_date = null;
+        $this->date_until_access_to_admin_panel = null;
+
+        $this->save();
+    }
+
     public function checkAuthCode(string $code)
     {
         if (strlen($code) < 2) {

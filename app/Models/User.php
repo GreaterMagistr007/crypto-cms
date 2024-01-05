@@ -62,4 +62,9 @@ class User extends Authenticatable
 
         return $this->adminData;
     }
+
+    public function resetAdminAuthData()
+    {
+        $this->getAdminData()?->resetAdminAuthData();
+    }
 }
