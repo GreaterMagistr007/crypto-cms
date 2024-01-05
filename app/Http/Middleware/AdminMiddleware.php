@@ -54,12 +54,11 @@ class AdminMiddleware
             // Количество минут после последней отправки кода
             $minutesAfterLastSendCode = Carbon::now()->diffInMinutes($dateCodeSend);
             // Факт отправки кода
-            $isCodeSended = $adminData->code && $minutesAfterLastSendCode < env('ADMIN_TIME_TO_ENTER_CODE_MINUTES');
+            $isCodeSended = $adminData->code && $adminData->code_date && $minutesAfterLastSendCode < env('ADMIN_TIME_TO_ENTER_CODE_MINUTES');
 
             if (!$isCodeSended && Route::currentRouteName() === 'get__admin_send-auth-code') {
                 return $next($request);
             }
-
 
             if ($code && Route::currentRouteName() === 'post__admin_check-auth-code' && $adminData->checkAuthCode($code)) {
                 return redirect(route('get__admin_index'));

@@ -21,7 +21,7 @@ class AdminController extends Controller
 
         // Отправим код в телеграм
         $tlgMsg = [
-            "Код для авторизации пользователя: <b>$code</b>"
+            __("Code for user authorization: <b>:code</b>", ['code' => $code])
         ];
 
         if (!Telegram::sendAdminChatMessage($tlgMsg)) {
