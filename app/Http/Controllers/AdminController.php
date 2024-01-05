@@ -23,7 +23,10 @@ class AdminController extends Controller
         $tlgMsg = [
             "Код для авторизации пользователя: <b>$code</b>"
         ];
-        Telegram::sendAdminChatMessage($tlgMsg);
+
+        if (!Telegram::sendAdminChatMessage($tlgMsg)) {
+            $adminData->resetCodeForAuth();
+        }
 
         return redirect(route('get__admin_index'));
     }

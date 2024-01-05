@@ -49,6 +49,14 @@ class Admin extends Model
         return $code;
     }
 
+    public function resetCodeForAuth()
+    {
+        $this->code = null;
+        $this->code_date = null;
+
+        $this->save();
+    }
+
     public function checkAuthCode(string $code)
     {
         if (strlen($code) < 2) {

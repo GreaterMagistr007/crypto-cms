@@ -9,7 +9,12 @@ class Telegram extends Model
 {
     use HasFactory;
 
-    public static function sendAdminChatMessage($arrayOfStrings = [])
+    /**
+     * Отправляем сообщение в админскую группу
+     * @param $arrayOfStrings
+     * @return bool
+     */
+    public static function sendAdminChatMessage($arrayOfStrings = []): bool
     {
         foreach ($arrayOfStrings as $string) {
             if (!is_string($string)) {
@@ -21,7 +26,7 @@ class Telegram extends Model
         $telegramBotToken = env('ADMIN_AUTH_BOT_TOKEN');
         $text = implode("\r\n", $arrayOfStrings);
 
-        self::sendMessage($text, $chatId, $telegramBotToken);
+        return self::sendMessage($text, $chatId, $telegramBotToken);
     }
 
     /**
@@ -29,9 +34,9 @@ class Telegram extends Model
      * @param string $text - строка сообщения
      * @param string $chatId - id чата, куда бот будет отправлять сообщение
      * @param string $telegramBotToken - токен бота, который будет отправлять сообщение
-     * @return void
+     * @return bool
      */
-    private static function sendMessage(string $text, string $chatId, string $telegramBotToken): void
+    private static function sendMessage(string $text, string $chatId, string $telegramBotToken): bool
     {
         $ch = curl_init();
         curl_setopt_array(
@@ -50,12 +55,15 @@ class Telegram extends Model
         );
         $response = curl_exec($ch);
         if (curl_errno($ch)) {
+            return false;
 //            // Обработка ошибок
 //            echo 'Curl error: ' . curl_error($ch);
-            dd(
-                'Ошибка: ', curl_error($ch),
-                $response
-            );
+//            dd(
+//                'Ошибка: ', curl_error($ch),
+//                $response
+//            );
         }
+
+        return true;
     }
 }
