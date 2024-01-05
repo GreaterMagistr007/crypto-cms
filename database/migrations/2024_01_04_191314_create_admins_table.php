@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admins', function (Blueprint $table) {
-            $table->integer('userid')->unique(); // id пользователя из таблицы Users
+            $table->bigInteger('userid')->unique()->index('userid'); // id пользователя из таблицы Users
             $table->string('code')->nullable(); // Код подтверждения
             $table->timestamp('code_date')->nullable(); // Дата отправки кода
-            $table->string('code_date')->nullable(); // Дата отправки кода
         });
     }
 
