@@ -839,5 +839,8 @@
     "These credentials do not match our records.": "Эти учетные данные не соответствуют нашим записям.",
     "The password field must be at least 8 characters.": "Поле пароля должно быть не менее 8 символов.",
     "The code will be sent to the chat": "Код будет отправлен в чат",
-    "Send code": "Отправить код"
+    "Send code": "Отправить код",
+    "Your time in the admin panel has expired": "Время пребывания в админке истекло",
+    "Enter code": "Введите код",
+    "Enter": "Войти"
 }

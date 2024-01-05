@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Admin;
+use App\Models\Helper;
 use App\Models\User;
 use Carbon\Carbon;
 use Closure;
@@ -40,6 +42,13 @@ class AdminMiddleware
         if (!$adminData->date_until_access_to_admin_panel || $timeNow > $adminData->date_until_access_to_admin_panel) {
             dump('Время пребывания в админке вышло');
 
+            // Проверим наличие кода в запросе
+            $error = '';
+            $code = Helper::keepOnlyDigits($request->code);
+            if ($code) {
+                $error = 'код неверный или время проверки истекло';
+            }
+
             // Дата отправки кода
             $dateCodeSend = Carbon::parse($adminData->code_date);
             // Количество минут после последней отправки кода
@@ -47,20 +56,18 @@ class AdminMiddleware
             // Факт отправки кода
             $isCodeSended = $adminData->code && $minutesAfterLastSendCode < env('ADMIN_TIME_TO_ENTER_CODE_MINUTES');
 
-//            dd($minutesAfterLastSendCode);
-
-            if (!$isCodeSended && Route::currentRouteName() === 'patch__admin_send-auth-code') {
+            if (!$isCodeSended && Route::currentRouteName() === 'get__admin_send-auth-code') {
                 return $next($request);
             }
 
-            return response(view('admin.pages.code', ['isCodeSended' => $isCodeSended, 'minutesAfterLastSendCode' => $minutesAfterLastSendCode]));
+
+            if ($code && Route::currentRouteName() === 'post__admin_check-auth-code' && $adminData->checkAuthCode($code)) {
+                return redirect(route('get__admin_index'));
+            }
+
+            return response(view('admin.pages.code', ['isCodeSended' => $isCodeSended, 'minutesAfterLastSendCode' => $minutesAfterLastSendCode, 'error' => $error]));
         }
 
-        //
-
-
-
-        //
         return $next($request);
     }
 }

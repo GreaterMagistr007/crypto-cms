@@ -25,6 +25,11 @@ class AdminController extends Controller
         ];
         Telegram::sendAdminChatMessage($tlgMsg);
 
-        dd('admin send_telegram_code_for_auth');
+        return redirect(route('get__admin_index'));
+    }
+
+    public function checkAuthCode(string $code)
+    {
+        dd('Проверяем код ' . $code);
     }
 }

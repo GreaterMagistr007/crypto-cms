@@ -52,10 +52,10 @@ class Telegram extends Model
         if (curl_errno($ch)) {
 //            // Обработка ошибок
 //            echo 'Curl error: ' . curl_error($ch);
-//            dd(
-//                'Ошибка: ', curl_error($ch),
-//                $response
-//            );
+            dd(
+                'Ошибка: ', curl_error($ch),
+                $response
+            );
         }
     }
 }

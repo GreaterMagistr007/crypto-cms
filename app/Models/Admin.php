@@ -48,4 +48,23 @@ class Admin extends Model
 
         return $code;
     }
+
+    public function checkAuthCode(string $code)
+    {
+        if (strlen($code) < 2) {
+            return false;
+        }
+
+        // Тут надо проверить еще время после отправки кода
+
+        if ($this->code === $code) {
+            // Код верный, сохраним
+            $this->date_until_access_to_admin_panel = Carbon::now()->addMinutes(env('ADMIN_ACTIVE_MINUTES_AFTER_LOGIN'));
+            $this->save();
+
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -141,4 +141,14 @@ class Helper extends Model
 
         return mt_rand($min, $max);
     }
+
+    /**
+     * Оставляет только цифры
+     * @param $str
+     * @return string
+     */
+    public static function keepOnlyDigits($str): string
+    {
+        return is_string($str) ? preg_replace('/[^0-9]/', '', $str) : '';
+    }
 }
