@@ -121,4 +121,24 @@ class Helper extends Model
 
         return '';
     }
+
+    /**
+     * Генерация целочисленного значения из диапазона
+     * @param int $min
+     * @param int $max
+     * @return int
+     */
+    static function generateRandomInteger(int $min = 1, int $max = 10): int
+    {
+        $min = (int)$min;
+        $max = (int)$max;
+        if ($min < 1) {
+            $min = 1;
+        }
+        if ($max < 1) {
+            $max = 1;
+        }
+
+        return mt_rand($min, $max);
+    }
 }
