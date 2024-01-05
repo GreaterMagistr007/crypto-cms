@@ -46,7 +46,6 @@
                         headers: {
                             'X-CSRF-TOKEN': getCsrfToken()
                         },
-                        body: JSON.stringify({action: 'send_code'})
                     };
 
                     fetch(url, requestOptions)

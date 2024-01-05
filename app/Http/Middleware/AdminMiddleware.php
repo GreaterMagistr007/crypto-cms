@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
@@ -46,11 +47,8 @@ class AdminMiddleware
             // Факт отправки кода
             $isCodeSended = $adminData->code && $minutesAfterLastSendCode > env('ADMIN_TIME_TO_ENTER_CODE_MINUTES');
 
-            if (!$isCodeSended && $request->method() === 'PATCH') {
-                dd(route('patch__admin_send-auth-code'), $request);
-                if ($request->method() === 'PATCH') {
-                    dd($request->action);
-                }
+            if (!$isCodeSended && Route::currentRouteName() === 'patch__admin_send-auth-code') {
+                return $next($request);
             }
 
             return response(view('admin.pages.code', ['isCodeSended' => $isCodeSended, 'minutesAfterLastSendCode' => $minutesAfterLastSendCode]));
