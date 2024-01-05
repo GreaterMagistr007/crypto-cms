@@ -42,4 +42,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+//    protected ?int $id = null;
+//    private ?Admin $adminData = null;
+
+    /**
+     * @return integer
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getAdminData(): ?Admin
+    {
+        if ($this->adminData === null) {
+            $this->adminData = Admin::getAdminUserByUserId($this->id);
+        }
+
+        return $this->adminData;
+    }
 }

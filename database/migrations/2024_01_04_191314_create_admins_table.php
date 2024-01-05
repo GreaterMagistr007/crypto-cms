@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigInteger('userid')->unique()->index('userid'); // id пользователя из таблицы Users
             $table->string('code')->nullable(); // Код подтверждения
             $table->timestamp('code_date')->nullable(); // Дата отправки кода
+            $table->timestamp('date_until_access_to_admin_panel')->nullable(); // Дата, до которой пользователю доступна админка
         });
     }
 

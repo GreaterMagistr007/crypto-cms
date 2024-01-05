@@ -35,3 +35,4 @@ Route::prefix('cabinet')->group(function() {
 })->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';
