@@ -14,7 +14,6 @@ class Telegram extends Model
         foreach ($arrayOfStrings as $string) {
             if (!is_string($string)) {
                 throw new \DomainException('Каждая строка в сообщении должна быть СТРОКОЙ');
-                return false;
             }
         }
 
