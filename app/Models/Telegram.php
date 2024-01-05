@@ -44,8 +44,18 @@ class Telegram extends Model
                 CURLOPT_POSTFIELDS => array(
                     'chat_id' => $chatId,
                     'text' => $text,
+                    'parse_mode' => 'HTML',     //Форматировать как HTML
                 ),
             )
         );
+        $response = curl_exec($ch);
+        if (curl_errno($ch)) {
+//            // Обработка ошибок
+//            echo 'Curl error: ' . curl_error($ch);
+//            dd(
+//                'Ошибка: ', curl_error($ch),
+//                $response
+//            );
+        }
     }
 }

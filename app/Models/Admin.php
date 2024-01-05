@@ -38,13 +38,11 @@ class Admin extends Model
      */
     public function generateCodeForAuth()
     {
-        $codeLength = Helper::generateRandomInteger();
+        $codeLength = Helper::generateRandomInteger(3, 6);
         $code = Helper::generateRandomNumericString($codeLength);
 
         $this->code = $code;
         $this->code_date = Carbon::now();
-
-
 
         $this->save();
 
