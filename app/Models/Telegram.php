@@ -9,7 +9,7 @@ class Telegram extends Model
 {
     use HasFactory;
 
-    public static function send_admin_chat_message($arrayOfStrings = [])
+    public static function sendAdminChatMessage($arrayOfStrings = [])
     {
         foreach ($arrayOfStrings as $string) {
             if (!is_string($string)) {
