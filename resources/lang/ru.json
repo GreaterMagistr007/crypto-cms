@@ -843,5 +843,7 @@
     "Your time in the admin panel has expired": "Время пребывания в админке истекло",
     "Enter code": "Введите код",
     "Enter": "Войти",
-    "Code for user authorization: <b>:code</b>": "Код для авторизации пользователя: <b>:code</b>"
+    "Code for user authorization: <b>:code</b>": "Код для авторизации пользователя: <b>:code</b>",
+    "Assets" : "Активы",
+    "Wallets" : "Счета"
 }

@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
 // маршруты кабинета
 Route::prefix('cabinet')->middleware(['auth', 'verified', /*'checkCurrentUser'*/])->group(function() {
     Route::get('/', [CabinetController::class, 'index'])->name('cabinet_index');
+    Route::get('/wallets', [CabinetController::class, 'wallets'])->name('cabinet_wallets');
 });
 
 require __DIR__.'/auth.php';

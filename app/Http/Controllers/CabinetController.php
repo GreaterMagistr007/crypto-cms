@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use \Illuminate\Contracts\View\View;
 
 class CabinetController extends Controller
 {
@@ -13,7 +14,11 @@ class CabinetController extends Controller
 
     private $templateParams = [];
 
-    public function index()
+    /**
+     * Главная страница личного кабинета
+     * @return View
+     */
+    public function index(): View
     {
         $activePage = [
             'href' => route('cabinet_index'),
@@ -22,6 +27,21 @@ class CabinetController extends Controller
         $this->addTemplateParam('activePage', $activePage);
 
         return $this->view('index');
+    }
+
+    /**
+     * Счета
+     * @return View
+     */
+    public function wallets(): View
+    {
+        $activePage = [
+            'href' => route('cabinet_wallets'),
+            'title' => __('Wallets'),
+        ];
+        $this->addTemplateParam('activePage', $activePage);
+
+        return $this->view('wallets');
     }
 
     private function view(string $templateName)
