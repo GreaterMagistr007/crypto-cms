@@ -6,11 +6,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    // Текущий авторизованный пользователь в системе
+    private static User|null $current = null;
 
     /**
      * The attributes that are mass assignable.
@@ -43,9 +47,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-//    protected ?int $id = null;
-//    private ?Admin $adminData = null;
-
     /**
      * @return integer
      */
@@ -66,5 +67,23 @@ class User extends Authenticatable
     public function resetAdminAuthData()
     {
         $this->getAdminData()?->resetAdminAuthData();
+    }
+
+    /**
+     * Текущий авторизованный пользователь в системе
+     * @return static|null
+     */
+    public static function getCurrentUser(): self|null
+    {
+        if (!self::$current) {
+            self::$current = Auth::user();
+        }
+
+        return self::$current;
+    }
+
+    public static function setCurrentUser($user)
+    {
+        self::$current = $user;
     }
 }
