@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('symbol')->nullable(); // Текстовый символ валюты
             $table->string('image_min')->nullable(); // Картинка маленького символа валюты
             $table->string('title')->nullable(); // Название валюты
-            $table->string('purchase_rate')->nullable(); // курс покупки
-            $table->string('selling_rate')->nullable(); // курс продажи
+            $table->float('purchase_rate')->nullable(); // курс покупки
+            $table->float('selling_rate')->nullable(); // курс продажи
+            $table->integer('count_digits_rounding')->nullable(); // количество цифр для округления
             $table->timestamp('last_update_rate')->nullable(); // Время последнего обновления курса
             $table->boolean('is_can_top')->nullable(); // Можно пополнять счет (Для всех пользователей)
             $table->boolean('is_can_withdrawn')->nullable(); // Можно выводить со счета (Для всех пользователей)
