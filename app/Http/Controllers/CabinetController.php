@@ -15,6 +15,12 @@ class CabinetController extends Controller
 
     public function index()
     {
+        $activePage = [
+            'href' => route('cabinet_index'),
+            'title' => __('Dashboard'),
+        ];
+        $this->addTemplateParam('activePage', $activePage);
+
         return $this->view('index');
     }
 
