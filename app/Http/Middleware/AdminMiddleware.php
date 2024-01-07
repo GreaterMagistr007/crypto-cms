@@ -32,7 +32,7 @@ class AdminMiddleware
         // Пользователь не админ, покажем 404
         $adminData = $user->getAdminData();
         if (!$adminData) {
-            dump('Пользователь не админ');
+//            dump('Пользователь не админ');
             return response(view('errors.404'));
         }
 
@@ -40,12 +40,13 @@ class AdminMiddleware
 
         // Админка пользователю недоступна, нужно подтверждение кодом
         if (!$adminData->date_until_access_to_admin_panel || $timeNow > $adminData->date_until_access_to_admin_panel) {
-            dump('Время пребывания в админке вышло');
+//            dump('Время пребывания в админке вышло');
 
             // Проверим наличие кода в запросе
             $error = '';
+            // Мы уверены, что код состоит только из цифр
             $code = Helper::keepOnlyDigits($request->code);
-            if ($code) {
+            if (!$code) {
                 $error = 'код неверный или время проверки истекло';
             }
 
